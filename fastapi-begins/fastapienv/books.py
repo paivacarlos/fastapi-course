@@ -59,6 +59,15 @@ async def Create_Book(book_title, book_author):
 
     return books[f'book_{current_book_id + 1}']
 
+@app.put("/{book_name}")
+async def Update_Book(book_id: str, book_title: str, book_author: str):
+    book_updated = 'This book is not found!'
+    for book in books:
+        if book == book_id:
+            book_updated = {'title': book_title, 'author': book_author}
+            books[book_id] = book_updated
+
+    return book_updated
 
 
 
