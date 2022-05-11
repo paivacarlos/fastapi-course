@@ -69,6 +69,17 @@ async def Update_Book(book_id: str, book_title: str, book_author: str):
 
     return book_updated
 
+@app.delete("/{book_id}")
+async def Delete_Book(book_id):
+    book_deleted = 'Ops, this book is not found!'
+    print("aqui", book_id)
+    for book in books.copy():
+        if book == book_id:
+            del books[book_id]
+            book_deleted = f'{book_id} deleted!'
+
+    return book_deleted
+
 
 
 
