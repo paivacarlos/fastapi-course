@@ -44,8 +44,20 @@ async def Get_Book_By_Author(author_book: str):
             author_book_found = current_author_book
     return author_book_found
 
+@app.post("/")
+async def Create_Book(book_title, book_author):
+    current_book_id = 0
 
+    if len(books) > 0:
+        for book in books:
+            x = int(book.split('_')[-1])
+            print("Aqui", x)
+            if x > current_book_id:
+                current_book_id = x
 
+    books[f'book_{current_book_id + 1}'] = {'title': book_title, 'author': book_author}
+
+    return books[f'book_{current_book_id + 1}']
 
 
 
