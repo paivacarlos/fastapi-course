@@ -16,3 +16,38 @@ BOOKS = []
 @app.get("/")
 async def Get_All_Books():
     return BOOKS
+
+
+@app.post("/")
+async def Create_Book(book: Book):
+    BOOKS.append(book)
+    return book
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
