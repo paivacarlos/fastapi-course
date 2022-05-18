@@ -16,6 +16,17 @@ class Book(BaseModel):
                                         )
     rating: int = Field(gt=-1, lt=101)
 
+    class Config:
+        schema_extra = {
+            "example": {
+                "id": "c07764f6-63a9-47d9-b21f-7eaea16e7f7a",
+                "title": "Advetures of Python developer",
+                "author": "Carlos Paiva",
+                "description": "Its a QA that changing to a developer.",
+                "rating": 75
+            }
+        }
+
 BOOKS = []
 
 @app.get("/")
