@@ -30,9 +30,17 @@ class Book(BaseModel):
 BOOKS = []
 
 @app.get("/")
-async def Get_All_Books():
+async def Get_All_Books(books_to_return: Optional[int] = None):
     if len(BOOKS) < 1:
         Create_Books_No_Api()
+
+    if books_to_return and len(BOOKS) >= books_to_return > 0:
+        i = 1
+        new_books = []
+        while i <= books_to_return:
+            new_books.append(BOOKS[i - 1])
+            i += 1
+        return new_books
     return BOOKS
 
 
