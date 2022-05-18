@@ -20,6 +20,8 @@ BOOKS = []
 
 @app.get("/")
 async def Get_All_Books():
+    if len(BOOKS) < 1:
+        return {"message":"There is no book avalible"}
     return BOOKS
 
 
@@ -27,23 +29,6 @@ async def Get_All_Books():
 async def Create_Book(book: Book):
     BOOKS.append(book)
     return book
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
