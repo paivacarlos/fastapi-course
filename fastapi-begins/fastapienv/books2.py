@@ -32,7 +32,7 @@ BOOKS = []
 @app.get("/")
 async def Get_All_Books():
     if len(BOOKS) < 1:
-        return {"message":"There is no book avalible"}
+        Create_Books_No_Api()
     return BOOKS
 
 
@@ -40,6 +40,42 @@ async def Get_All_Books():
 async def Create_Book(book: Book):
     BOOKS.append(book)
     return book
+
+def Create_Books_No_Api():
+    book_1 = Book(id="fe7424b3-6782-4b5f-85a9-a1278756fe66",
+                  title="Title 1",
+                  author="Author 1",
+                  description="Description 1",
+                  rating=60)
+
+    book_2 = Book(id="fe2424b3-6782-4b5f-85a9-a1278756fe67",
+                  title="Title 2",
+                  author="Author 2",
+                  description="Description 2",
+                  rating=70)
+
+    book_3 = Book(id="fe3424b3-6782-4b5f-85a9-a1278756fe68",
+                  title="Title 3",
+                  author="Author 3",
+                  description="Description 3",
+                  rating=80)
+    book_4 = Book(id="fe4424b3-6782-4b5f-85a9-a1278756fe69",
+                  title="Title 4",
+                  author="Author 4",
+                  description="Description 4",
+                  rating=90)
+
+    book_5 = Book(id="fe5424b3-6782-4b5f-85a9-a1278756fe70",
+                  title="Title 5",
+                  author="Author 5",
+                  description="Description 5",
+                  rating=100)
+
+    BOOKS.append(book_1)
+    BOOKS.append(book_2)
+    BOOKS.append(book_3)
+    BOOKS.append(book_4)
+    BOOKS.append(book_5)
 
 
 
