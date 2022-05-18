@@ -43,6 +43,15 @@ async def Get_All_Books(books_to_return: Optional[int] = None):
         return new_books
     return BOOKS
 
+@app.get("/book/{boo_id}")
+async def Get_Specific_Book_By_UUID(book_id:UUID):
+    current_book = "Book not found! :("
+    for book in BOOKS:
+        if book.id == book_id:
+            current_book = book
+            return current_book
+
+    return current_book
 
 @app.post("/")
 async def Create_Book(book: Book):
