@@ -56,16 +56,13 @@ async def Get_Specific_Book_By_UUID(book_id:UUID):
 @app.put("/{book_id}")
 async def Update_Book_By_UUID(book_id: UUID, book: Book):
     counter = 0
-    book_updated = "Book not found! :("
-
     for current_book in BOOKS:
         counter += 1
         if current_book.id == book_id:
             BOOKS[counter - 1] = book
-            book_updated = BOOKS[counter - 1]
-            return book_updated
+            return BOOKS[counter - 1]
 
-    return book_updated
+    raise HTTPException(status_code=404, detail="Book not found! :(")
 
 @app.post("/")
 async def Create_Book(book: Book):
