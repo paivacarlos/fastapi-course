@@ -48,10 +48,9 @@ async def Get_Specific_Book_By_UUID(book_id:UUID):
     current_book = "Book not found! :("
     for book in BOOKS:
         if book.id == book_id:
-            current_book = book
-            return current_book
+            return book
 
-    return current_book
+    raise HTTPException(status_code=404, detail="Book not found! :(")
 
 @app.put("/{book_id}")
 async def Update_Book_By_UUID(book_id: UUID, book: Book):
