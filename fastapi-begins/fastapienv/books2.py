@@ -1,9 +1,14 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from pydantic import BaseModel, Field
 from typing import Optional
 from uuid import UUID
+from starlette.responses import JSONResponse
 
 app = FastAPI()
+
+class Negative_Number_Exception(Exception):
+    def __init__(self, books_to_return):
+        self.books_to_return = books_to_return
 
 class Book(BaseModel):
     id: UUID
@@ -29,8 +34,19 @@ class Book(BaseModel):
 
 BOOKS = []
 
+@app.exception_handler(Negative_Number_Exception)
+async def Negative_Number_Exception_Handler(request: Request,
+                                            exception: Negative_Number_Exception):
+    return JSONResponse(
+        status_code= 418,
+        content={"message": f"There is no id for this {exception.books_to_return}"}
+    )
+
 @app.get("/")
 async def Get_All_Books(books_to_return: Optional[int] = None):
+    if books_to_return and books_to_return < 0:
+        raise Negative_Number_Exception(books_to_return=books_to_return)
+
     if len(BOOKS) < 1:
         Create_Books_No_Api()
 
