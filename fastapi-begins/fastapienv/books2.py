@@ -61,7 +61,7 @@ async def Update_Book_By_UUID(book_id: UUID, book: Book):
             BOOKS[counter - 1] = book
             return BOOKS[counter - 1]
 
-    raise HTTPException(status_code=404, detail="Book not found! :(")
+    raise raise_item_cannot_be_found_exception()
 
 @app.post("/")
 async def Create_Book(book: Book):
@@ -78,7 +78,7 @@ async def Delete_Book_By_UUID(book_id: UUID):
             del BOOKS[counter - 1]
             return f'ID:{book_id} deleted!'
 
-    raise HTTPException(status_code=404, detail="Book not found! :(")
+    raise raise_item_cannot_be_found_exception()
 
 
 def Create_Books_No_Api():
@@ -118,7 +118,9 @@ def Create_Books_No_Api():
     BOOKS.append(book_5)
 
 
-
+def raise_item_cannot_be_found_exception():
+    return HTTPException(status_code=404, detail="Book not found! :(",
+                  headers={"X-Header-Error": "Nothing to be seen at the UUID."})
 
 
 
