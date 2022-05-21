@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, Request, status
 from pydantic import BaseModel, Field
 from typing import Optional
 from uuid import UUID
@@ -99,7 +99,7 @@ async def Update_Book_By_UUID(book_id: UUID, book: Book):
 
     raise raise_item_cannot_be_found_exception()
 
-@app.post("/")
+@app.post("/", status_code=status.HTTP_201_CREATED)
 async def Create_Book(book: Book):
     BOOKS.append(book)
     return book
