@@ -32,6 +32,17 @@ class Book(BaseModel):
             }
         }
 
+class BookNoRating(BaseModel):
+    id:UUID
+    title: str = Field(min_lenght=1)
+    author: str
+    description: Optional[str] = Field(
+        None,
+        title="Descripton of the books",
+        max_lenght=100,
+        min_lenght=1
+    )
+
 BOOKS = []
 
 @app.exception_handler(Negative_Number_Exception)
@@ -61,6 +72,15 @@ async def Get_All_Books(books_to_return: Optional[int] = None):
 
 @app.get("/book/{boo_id}")
 async def Get_Specific_Book_By_UUID(book_id:UUID):
+    current_book = "Book not found! :("
+    for book in BOOKS:
+        if book.id == book_id:
+            return book
+
+    raise HTTPException(status_code=404, detail="Book not found! :(")
+
+@app.get("/book/rating/{boo_id}", response_model=BookNoRating)
+async def Get_Specific_Book_By_UUID_No_Rating(book_id:UUID):
     current_book = "Book not found! :("
     for book in BOOKS:
         if book.id == book_id:
