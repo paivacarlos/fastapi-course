@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Request, status
+from fastapi import FastAPI, HTTPException, Request, status, Form
 from pydantic import BaseModel, Field
 from typing import Optional
 from uuid import UUID
@@ -52,6 +52,10 @@ async def Negative_Number_Exception_Handler(request: Request,
         status_code= 418,
         content={"message": f"There is no id for this {exception.books_to_return}"}
     )
+
+@app.post("/books/login")
+async def Book_Login(username: str = Form(...), password: str = Form(...)):
+    return {"username": username, "password": password}
 
 @app.get("/")
 async def Get_All_Books(books_to_return: Optional[int] = None):
