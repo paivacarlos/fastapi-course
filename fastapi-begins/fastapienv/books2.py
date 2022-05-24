@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Request, status, Form
+from fastapi import FastAPI, HTTPException, Request, status, Form, Header
 from pydantic import BaseModel, Field
 from typing import Optional
 from uuid import UUID
@@ -56,6 +56,10 @@ async def Negative_Number_Exception_Handler(request: Request,
 @app.post("/books/login")
 async def Book_Login(username: str = Form(...), password: str = Form(...)):
     return {"username": username, "password": password}
+
+@app.get("/header")
+async def Read_Header(random_header: Optional[str] = Header(None)):
+    return {"Random-Header":random_header}
 
 @app.get("/")
 async def Get_All_Books(books_to_return: Optional[int] = None):
